@@ -77,7 +77,9 @@
 ## Vanilla JS 와 React JS 차이점은? 
 > Vanilla JS 는 HTML 을 먼저 만들고, 요소를 Javascript 로 가져와서 HTML 을 수정하는 방식이였고,
 > React JS 는 Javascript 에서 시작한 다음 HTML 이 된다.
+> 
 > 이게 바로 React JS 파워의 핵심이다!
+> 
 > React JS 는 업데이트가 필요한 element 를 업데이트할 수 있다.
 > 즉 React JS 는 유저에게 보여질 내용을 컨트롤할 수 있다는 뜻이다.
 > 우리는 React JS 에게 업데이트해야 하는 HTML 을 업데이트하라고 할 것이다.
