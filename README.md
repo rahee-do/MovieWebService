@@ -54,7 +54,7 @@
 ```javascript
 <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script>
+
     const root = document.getElementById("root");
     // createElement 함수의 두 번째 argument 로 둘 수 있는 것은 span 의 property 들이다.
     // 세 번째 argument 는 span 의 content(내용) 이다.
@@ -71,7 +71,7 @@
     // 즉 사용자에게 보여준다 는 뜻이다.
     // ReactDOM.render(HTML태그, ReactDOM 에게 HTML태그를 어디에 둘 것인지 알려주는 것)
     ReactDOM.render(span, root);
-</script>
+
 ```
 
 ## Vanilla JS 와 React JS 차이점은? 
@@ -83,3 +83,19 @@
 > React JS 는 업데이트가 필요한 element 를 업데이트할 수 있다.
 > 즉 React JS 는 유저에게 보여질 내용을 컨트롤할 수 있다는 뜻이다.
 > 우리는 React JS 에게 업데이트해야 하는 HTML 을 업데이트하라고 할 것이다.
+```javascript
+// React JS POWER!
+// 여기 있는 statement 로만 HTML 을 만들고, content 도 넣고, event listener 도 등록하기
+// 이것이 javascript 로 element 를 생성하고 HTML 로 바꾸는 방식의 힘이다!
+const btn = React.createElement(
+    // HTML element 만들기
+    "button", 
+    {
+        // button 에 event listener 주기
+        onClick: () => console.log("i'm clicked"),
+        onMouseEnter: () => console.log("i'm mouseEnter !"),
+        style: { backgroundColor: "tomato" }
+    },
+    // content 넣기
+    "Click me");
+```

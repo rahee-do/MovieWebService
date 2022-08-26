@@ -13,8 +13,8 @@
         const root = document.getElementById("root");
         // createElement 함수의 두 번째 argument 로 둘 수 있는 것은 span 의 property 들이다.
         // 세 번째 argument 는 span 의 content(내용) 이다.
-        const span = React.createElement(
-            "span",
+        const h3 = React.createElement(
+            "h3",
             { id: "sexy-span", style: { color: "red" } },
             "Hello, I'm a span"
         );
@@ -25,6 +25,21 @@
         // render () 의 의미는 React element 를 가지고 HTML 로 만들어 배치한다는 것이다.
         // 즉 사용자에게 보여준다 는 뜻이다.
         // ReactDOM.render(HTML태그, ReactDOM 에게 HTML태그를 어디에 둘 것인지 알려주는 것)
-        ReactDOM.render(span, root);
+
+        const btn = React.createElement("button", {
+            // button 에 event listener 주기
+            // React JS POWER!
+            // 여기 있는 statement 로만 HTML 을 만들고, content 도 넣고, event listener 도 등록하기
+            // 이것이 javascript 로 element 를 생성하고 HTML 로 바꾸는 방식의 힘이다!
+            onClick: () => console.log("i'm clicked"),
+            onMouseEnter: () => console.log("i'm mouseEnter !"),
+            style: { backgroundColor: "tomato" }
+        }, "Click me");
+
+
+        // h3 을 먼저, button 을 그 다음으로 render 하고 싶을 경우 세 번째 argument 를 array 로 전달하면 된다.
+        // 즉, createElement 함수의 세 번째 argument 에 array 로 전달하면 태그 순서대로 HTML 화면에 그릴 수 있다.
+        const container = React.createElement("div", null, [h3, btn]);
+        ReactDOM.render(container, root);
     </script>
 </html>
