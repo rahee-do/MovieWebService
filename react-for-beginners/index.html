@@ -5,8 +5,21 @@
         <title>React for beginners</title>
     </head>
     <body>
+        <!-- ReactDOM 이 React element 들을 가져다 놓을 곳 -->
         <div id="root"></div>
     </body>
+    <!--
+    * 복습
+    * 1. React JS 와 ReactDOM 을 설치한다. (React JS 는 interactivity 의 원동력이다.)
+    * 2. ReactDOM 은 React element 를 가져다가 HTML 로 바꾸는 역할을 한다.
+    * 3. 그 다음 세 개의 element 를 생성했다. (h3, button, div)
+        3-1. 첫 번재 div 생성 => 아무런 property 를 가지고 있지 않고 h3, button 두 개의 element 를 render 하는 역할을 한다.
+        3-2. 두 번째 h3 생성 => 몇몇의 property 와 content 를 가지고 있다.
+        3-3. 세 번재 button 생성 => 몇몇의 property 와 content 를 가지고 있다.
+            ** 중요한 포인트 : props 안에서 event listener 를 등록할 수 있다.
+    -->
+
+    <!-- react, react-dom import 구문 -->
     <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script>
@@ -40,6 +53,8 @@
         // h3 을 먼저, button 을 그 다음으로 render 하고 싶을 경우 세 번째 argument 를 array 로 전달하면 된다.
         // 즉, createElement 함수의 세 번째 argument 에 array 로 전달하면 태그 순서대로 HTML 화면에 그릴 수 있다.
         const container = React.createElement("div", null, [h3, btn]);
+
+        // React element 들을 root div 안에 보여주라는 코드이다.
         ReactDOM.render(container, root);
     </script>
 </html>

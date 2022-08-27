@@ -74,7 +74,7 @@
 
 ```
 
-## Vanilla JS 와 React JS 차이점은? 
+## Vanilla JS 와 React JS 차이점은? (비교해보기) 
 > Vanilla JS 는 HTML 을 먼저 만들고, 요소를 Javascript 로 가져와서 HTML 을 수정하는 방식이였고,
 > React JS 는 Javascript 에서 시작한 다음 HTML 이 된다.
 > 
