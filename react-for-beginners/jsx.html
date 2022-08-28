@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React for beginners</title>
+</head>
+<body>
+<!-- ReactDOM 이 React element 들을 가져다 놓을 곳 -->
+<div id="root"></div>
+</body>
+
+<!-- react, react-dom import 구문 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- Load Babel : babel 을 import 한뒤, type 을 지정해줘야 한다. -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- type="text/babel -->
+<script type="text/babel">
+    const root = document.getElementById("root");
+    // JSX 문법
+    // Browser 는 JSX 문법을 다 이해하는 것은 아니라서 에러가 발생한다.
+    // SyntaxError: Unexpected token '<' (at jsx.html?_ijt=u2dkt6gk44333fa1gt08rnmgt0&_ij_reload=RELOAD_ON_SAVE:21:9)
+    // 그래서 Browser 가 이해할 수 있도록 Babel 을 설치해줘서 한 번 변환시켜줘야 한다.
+
+    const Title = (
+        <h3
+            id="title"
+            onMouseEnter={() => console.log("i'm mouseEnter !")}
+        >
+            Hello, I'm a span
+        </h3>
+    );
+
+    const Button = (
+        <button
+            style={{ backgroundColor: "tomato" }}
+            onClick={() => console.log("i'm clicked")}
+        >
+            Click me
+        </button>
+    );
+
+    const container = React.createElement("div", null, [Title, Button]);
+
+    // React element 들을 root div 안에 보여주라는 코드이다.
+    ReactDOM.render(container, root);
+</script>
+</html>
