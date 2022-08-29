@@ -102,7 +102,7 @@ const btn = React.createElement(
 
 ## [JSX](https://reactjs.org/docs/introducing-jsx.html) 란?
 - JSX 는 JavaScript 를 확장한 문법이다. 
-- 기본적으로 React 요소를 만들 수 있게 해주는데, HTML 에서 사용한 문법과 흡사한 문법으로 사용할 수 있다.
+- 기본적으로 React 요소를 만들 수 있게 해주는데, HTML 에서 사용한 문법과 흡사한 문법으로 사용할 수 있다. (React Element 를 생성하는 방법)
 > [Babel](https://babeljs.io/docs/en/babel-standalone) 은 코드를 변화시키는 트랜스파일러의 역할을 한다. 
 > JSX 로 적은 코드를 브라우저가 이해할 수 있는 형태로 바꿔주는 것이다. (바꿔주기 전까진 브라우저는 JSX 를 invalid 하다고 생각한다.)
 > 
@@ -156,7 +156,7 @@ const Title = /*#__PURE__*/React.createElement("h3", {
 ```
 
 - Babel 설치 후, JSX 를 사용한 script 에 type 을 주면 된다.
-- Perfect!!!!!!!!!!!!!!!
+- Perfect !
 
 ```jsx
 <!-- Load Babel : babel 을 import 한뒤, type 을 지정해줘야 한다. -->
@@ -173,4 +173,126 @@ const Title = /*#__PURE__*/React.createElement("h3", {
     </h3>
     );
 </script>
+```
+
+- JSX 문법 사용 규칙
+- 컴포넌트 첫 글자는 반드시 대문자여야 한다.
+- Button 컴포넌트를 소문자로 쓰면 HTML element 로 해석되기 때문이다.
+
+```jsx
+const root = document.getElementById("root");
+    function Title() {
+        return (
+            <h3
+                id="title"
+                onMouseEnter={() => console.log("i'm mouseEnter !")}
+            >
+                Hello, I'm a span
+            </h3>
+        )
+    };
+
+    const Button = () => (
+        <button
+            style={{ backgroundColor: "tomato" }}
+            onClick={() => console.log("i'm clicked")}
+        >
+            Click me
+        </button>
+    );
+
+    const Container = (
+        <div>
+            <Title />
+            <Button />
+        </div>
+    );
+    ReactDOM.render(Container, root);
+```
+
+- Container 도 컴포넌트로 바꿔주면 반드시 함수로 만들어줘야 한다.
+- 어떻게 하면 컴포넌트를 다른 컴포넌트 안에 넣는 지를 보여주는 예시. (arrow function 과 return 문을 포함하고 있는 것)
+
+```jsx
+// Container function
+function Container() {
+    return (
+        <div>
+            <Title />
+            <Button />
+        </div>
+    )
+} 
+// Container arrow function 와 return 문을 포함하고 있는 것
+const Container = () => (
+    <div>
+        <Title />
+        <Button />
+    </div>
+);
+const Container = () => (
+    <div>
+        <Title />
+        <Button />
+    </div>
+);
+// 위 두 함수 다 동일한 함수이다.
+
+ReactDOM.render(<Container />, root);
+```
+
+## State
+- state 는 기본적으로 데이터가 저장되는 곳이다. 
+- 어떻게 하면 React.js 어플에 값이 바뀔 데이터를 담아줄 수 있을까?
+
+```jsx
+/*
+* React state 예제 1 : 별로 좋지 못한 방식
+*/
+
+let counter = 10; // 1을 넣든, 10을 넣든 변수로 바로 연결해준다.
+const Container = () => (
+    <div>
+        <h3>Total clicks : {counter}</h3>
+        <button>Click me</button>
+    </div>
+);
+
+
+
+// button 을 클릭할 때 countUp 함수를 호출하면 counter 증가 로직에 의해 counter 의 값은 증가하지만,
+// 렌더링은 진입 시 한번만 실행되기 때문에 화면에서 counter 의 값은 업데이트 되지 않는다. (리렌더링되지 않음)
+// 즉 React.render() 되는 시점엔  counter 는 0 인 것이다. 
+
+let counter = 0;
+function countUp() {
+    counter = counter + 1;
+}
+const Container = () => (
+    <div>
+        <h3>Total clicks : {counter}</h3>
+        <button onClick={countUp}>Click me</button>
+    </div>
+);
+
+
+
+let counter = 0; // 변수로 바로 연결해준다.
+function countUp() {
+    counter = counter + 1;
+    // countUp 함수를 호출할 때마다  ReactDOM.render(<Container />, root); 렌더링을 시켜주고 싶은 것
+    // counter 가 증가할 때마다 리렌더링되서 화면에 보여지게 된다.
+    // ReactDOM.render(<Container />, root); => render 함수에 담아 호출하기
+    render();
+}
+function render() {
+    ReactDOM.render(<Container />, root);
+}
+const Container = () => (
+    <div>
+        <h3>Total clicks : {counter}</h3>
+        <button onClick={countUp}>Click me</button>
+    </div>
+);
+render();
 ```
