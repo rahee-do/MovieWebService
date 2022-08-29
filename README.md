@@ -296,3 +296,5 @@ const Container = () => (
 );
 render();
 ```
+
+- React 는 오로지 바뀐 부분만 업데이트 시켜준다. (강점)
