@@ -1,0 +1,8 @@
+# modules install
+node_modules
+
+# Intellij
+.idea/modules.xml
+.idea/vcs.xml
+.idea/movie-web-service.iml
+.idea/inspectionProfiles/Project_Default.xml
