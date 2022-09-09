@@ -296,6 +296,8 @@ render();
 
 - React 는 오로지 바뀐 부분만 업데이트 시켜준다. (강점)
 
+## useState 함수
+
 #### React state 예제 2 (Reactjs 방식)
 ```jsx
 function App() {
@@ -343,4 +345,31 @@ function App() {
     );
 }
 ReactDOM.render(<App />, document.getElementById("root"));
+```
+- state 가 바뀌면, React 가 Component 를 바뀐 부분만 refresh(rerender) 해주는 원리이다.
+
+> state 를 바꾸는 2가지 방법
+1. 직접 값을 설정해주는 것.
+```jsx
+const [counter, setCounter] = useState(0);
+setCounter(777);
+console.log(counter); // 출력 결과 : 777
+```
+2. 이전 값을 이용해서 현재 값을 계산해내는 것. (함수를 전달하기)
+```jsx
+const [counter, setCounter] = useState(0);
+setCounter((current) => current + 1);
+console.log(counter); // 출력 결과 : 1
+```
+### State 연습 예제 2가지
+#### unit 의 converter (단위 변환기) 만들기
+- 분 단위(minute) 를 넣으면 그걸 단위(hour) 로 값을 출력해주는 것
+- 예를 들어 55km 입력하면 이게 몇 mile 인지 얻어내고, 1시간을 넣으면 몇 초인지 알려주는 것 
+```jsx
+
+```
+#### money converter 배우기
+- 예를 들어 10달러를 입력하면 이게 원화로 얼마인지를 알려주는 것
+```jsx
+
 ```
