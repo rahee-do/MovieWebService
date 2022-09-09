@@ -245,11 +245,8 @@ ReactDOM.render(<Container />, root);
 - state 는 기본적으로 데이터가 저장되는 곳이다. 
 - 어떻게 하면 React.js 어플에 값이 바뀔 데이터를 담아줄 수 있을까?
 
+#### React state 예제 1 (별로 좋지 못한 방식)
 ```jsx
-/*
-* React state 예제 1 : 별로 좋지 못한 방식
-*/
-
 let counter = 10; // 1을 넣든, 10을 넣든 변수로 바로 연결해준다.
 const Container = () => (
     <div>
@@ -286,7 +283,7 @@ function countUp() {
     render();
 }
 function render() {
-    ReactDOM.render(<Container />, root);
+    ReactDOM.render(<Container />, document.getElementById("root"));
 }
 const Container = () => (
     <div>
@@ -298,3 +295,52 @@ render();
 ```
 
 - React 는 오로지 바뀐 부분만 업데이트 시켜준다. (강점)
+
+#### React state 예제 2 (Reactjs 방식)
+```jsx
+function App() {
+    // useState 함수 이해하기
+    const data = React.useState(0);
+    console.log(data);
+    // 출력 결과 > [0, ƒ]
+    // 1. 배열의 첫 번째 값은 초기 값아고,
+    // 2. 두 번째 요소는 그 값을 바꾸는 함수이다.
+    // 아래 코드가 useState 함수와 똑같은 역할을 하는 것이다.
+    /*
+    const counter = 0;
+    function countUp() {}
+    */
+    // useState 문법 이해하기
+    // 예시 코드
+    const food = ["apple", "tomato"];
+    const [myFavFood, mySecondFavFood] = food;
+    console.log(myFavFood, mySecondFavFood); // 출력 결과 > apple tomato
+
+    // useState 함수 실전
+    // React.js 가 data 를 담는 것과 업데이트 하는 방법
+    const [counter, setCounter] = React.useState(0);
+    // const [counter, modifier] = React.useState(0);
+    // let [counter, modifier] = React.useState(0);
+
+    const onClick = () => {
+        // modifier 함수는 인자 값을 하나만 가지고 있고,
+        // 1. 기존 값을 인자 값으로 업데이트 해주고,
+        // 2. 그리고 리렌더링을 시켜준다.
+        setCounter(counter + 1);
+        // modifier(a => a + 1);
+        /*
+        counter = counter + 1;
+        modifier(counter);
+        console.log(counter, modifier);
+        */
+    };
+
+    return (
+      <div>
+          <h3>Total click : {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+      </div>
+    );
+}
+ReactDOM.render(<App />, document.getElementById("root"));
+```
