@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React for beginners</title>
+</head>
+<body>
+<!-- ReactDOM 이 React element 들을 가져다 놓을 곳 -->
+<div id="root"></div>
+</body>
+
+<!-- react, react-dom import 구문 -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!--
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+-->
+<!-- Load Babel : babel 을 import 한뒤, type 을 지정해줘야 한다. -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- type="text/babel -->
+<script type="text/babel">
+    const root = document.getElementById("root");
+
+    function Test() {
+        const [list, setList] = React.useState([
+            {
+                title: "Foundation",
+                expanded: false,
+                children: [
+                    {
+                        title: "Logo",
+                        expanded: false,
+                    },
+                    {
+                        title: "Color",
+                        expanded: false,
+                    },
+                    {
+                        title: "Interaction",
+                        expanded: false,
+                    },
+                ]
+            },
+            {
+                title: "Components",
+                expanded: false,
+                children: [
+                    {
+                        title: "Input",
+                        expanded: false,
+                        children: [
+                            {
+                                title: "Select",
+                                threeExpanded: false,
+                            },
+                            {
+                                title: "Text Field",
+                                threeExpanded: false,
+                            },
+                            {
+                                title: "Number Field",
+                                threeExpanded: false,
+                            },
+                        ]
+                    },
+                    {
+                        title: "Views",
+                        expanded: false,
+                        children: [
+                            {
+                                title: "Table",
+                                expanded: false,
+                            },
+                        ]
+                    },
+                ]
+            },
+            {
+                title: "Pattern",
+                expanded: false,
+            },
+        ]);
+
+        React.useEffect(() => {
+            console.log(list);
+        }, [list]);
+
+        const onMenuClick = (event) => {
+            let depthTitle = event.target.innerText.split('\n')[0];
+            console.log(depthTitle);
+
+            list.forEach((item) => {
+                if (depthTitle === item.title) item.expanded = !item.expanded;
+                item.children?.forEach((item) => {
+                    if (depthTitle === item.title) item.expanded = !item.expanded;
+                })
+
+            })
+            setList((current) => [...current]);
+        };
+
+        return (
+            <div>
+                <h2>Test</h2>
+                <ul>
+                    {list.length !== 0 && list.map((item, index) => (
+                            <li key={index} onClick={onMenuClick} id="depth">
+                                {item.title}
+                                {item.expanded && (item.children?.map((item, index) => (
+                                    <ul key={index}>
+                                        <li>
+                                            {item.title}
+                                            {item.expanded && (item.children?.map((item, index) => (
+                                                <ul key={index}>
+                                                    <li>{item.title}</li>
+                                                </ul>
+                                            )))}
+                                        </li>
+                                    </ul>
+                                )))}
+                            </li>
+                        )
+                    )}
+                </ul>
+            </div>
+        );
+    }
+
+
+    // Input and State 의 unit conversion (단위 변환) App 만들기
+    // 분에서 시간으로, 반대로 시간에서 분으로 변환
+    // 킬로미터에서 마일로, 키로그램에서 파운드로 변환
+    // 분을 시단위로 고쳐주는 공식이 필요함
+    function App() {
+        // React.js 에서 input 은 uncontrolled 로 알려져 있어, value 값을 통제할 수 없다.
+        // state 생성
+        const [minutes, setMinutes] = React.useState(0); // default 비어 놓기
+        // 사용자가 input 에 다른 값을 입력할 때마다 value 를 업데이트 처리 (onChange 함수)
+        // onChange 함수 사용 (input 에 변화가 생길때마다 그 변화를 리스닝 하고 싶을 때 onChange 라는 event 사용)
+        const onChange = (event) => {
+            // console.log("somebody wrote"); // inspect 해보기!
+            // SyntheticBaseEvent 발생되는데 React JS 는 event 최적화를 시키기 때문에 가짜 Event 를 발생시키는 것.
+            // JavaScript event 와 동일한 것은 오브젝트 안에 있는 nativeEvent 이다.
+            // target 이란 방금 바뀐 input 을 말한다. target 안에서 value 속성도 확인해볼 수 있다.
+            // console.log(event);
+            console.log(event.target.value);
+            // input 의 value 를 가져왔으니, minutes 에 넣어주기
+            setMinutes(event.target.value);
+        };
+
+        /*
+        * State Practice part One : Recap (요약)
+        * 1. state 생성 (setState 의 결과는 array => 첫 번째 요소는 데이터이고, 두 번째 요소는 데이터를 수정하기 위한 함수)
+        * 2. input 의 value 를 state 로 연결 (input 에 value={state})
+        * 3. onChange 함수 생성 (onChange 함수는 state 의 두 번째 요소 사용해서 데이터 업데이트 해주는 역할을 해줌)
+        *   input 은 스스로 업데이트를 한다.
+        *   change 이벤트가 일어났을 때, 즉 사용자가 input 에 뭔가를 입력했을 때 onChange 함수가 실행된다.
+        *   event.target.value 를 얻게 되는데 바로 input value 이다.
+        *   setMinutes(event.target.value); 명령어로 데이터가 업데이트되고, value={minutes} input 이 업데이트 된다는 것이다.
+        *   input 의 value 를 연결 시켜주는 이유는 외부에서도 input 의 값을 수해주기 위해서다.
+        *       예를 들어, reset 버튼이 있다고 가정했을 때, reset 버튼을 누르면 input 내용을 다 지울 수 있다.
+        *
+        *   onChange 를 지우면 input 의 value 를 state 로 연결은 되어있기 때문에 default 값인 0 으로 값을 변경할 순 없어 한 세트이다.
+        *   통제되는(controlled) input 을 가지고 있고, event 도 리스닝 하고 있는 것이다.
+        *
+        * */
+
+        return (
+            <>
+                <div>
+                    <h1>Super Converter</h1>
+                    {/* javascript 에선 label 과 input 을 연결시켜주기 위해선 label 에 for 속성을 사용하지만, */}
+                    {/* react 의 jsx 에서는 htmlFor 속성으로 사용한다. */}
+                    {/* import 구문에서 react.development.js, react-dom.development.js 로 변경하면 유효하지 않은 DOM property 'for'. 라고 알려줌 */}
+                    <div>
+                        <label htmlFor="minutes">Minutes</label>
+                        <input value={minutes} onChange={onChange}  id="minutes" placeholder="Minutes" type="number" />
+                        {/*<h4>You want to convert {minutes}</h4>*/}
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input value={minutes} id="hours" placeholder="Hours" type="number" />
+                    </div>
+                </div>
+                <Test />
+            </>
+        );
+    }
+    ReactDOM.render(<App />, root);
+</script>
+</html>
