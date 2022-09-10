@@ -203,6 +203,7 @@
         return (
             <div>
                 <div>
+                    <h3>Minutes To Hours</h3>
                     {/* javascript 에선 label 과 input 을 연결시켜주기 위해선 label 에 for 속성을 사용하지만, */}
                     {/* react 의 jsx 에서는 htmlFor 속성으로 사용한다. */}
                     {/* import 구문에서 react.development.js, react-dom.development.js 로 변경하면 유효하지 않은 DOM property 'for'. 라고 알려줌 */}
@@ -237,9 +238,45 @@
     }
     // km/miles 변환기 Component
     function KmToMiles() {
-        return (
+        const [value, setValue] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => {
+            setValue(event.target.value);
+        }
+        const onReset = () => setValue(0);
+        const onInvert = () => {
+            onReset();
+            setInverted((current) => !current);
+        }
+         return (
             <div>
                 <h3>KM 2 Miles</h3>
+                <div>
+                    <div>
+                        <label htmlFor="kilometer">Km</label>
+                        <input
+                            value={inverted ? value / 1.609344 : value}
+                            onChange={onChange}
+                            disabled={inverted}
+                            id="kilometer"
+                            type="number"
+                            placeholder="Kilometer"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="mile">Mile</label>
+                        <input
+                            value={inverted ? value : value * 1.609344}
+                            onChange={onChange}
+                            disabled={!inverted}
+                            id="mile"
+                            type="number"
+                            placeholder="Mile"
+                        />
+                    </div>
+                    <button onClick={onReset}>Reset</button>
+                    <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+                </div>
             </div>
         )
     }

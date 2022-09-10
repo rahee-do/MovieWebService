@@ -366,7 +366,8 @@ console.log(counter); // 출력 결과 : 1
 - 시간 변환기 만들기
   - 예를 들어 분 단위(minute) 를 넣으면 그걸 단위(hour) 로 값을 출력해주는 것 ([구글 시간 변환기](https://www.google.com/search?q=%EB%B6%84%EC%97%90%EC%84%9C+%EC%8B%9C%EA%B0%84%EC%9C%BC%EB%A1%9C+%EB%B3%80%ED%99%98%EA%B8%B0&oq=%EB%B6%84%EC%97%90%EC%84%9C+%EC%8B%9C%EA%B0%84&aqs=chrome.1.69i57j0i512j0i5i30.6978j0j7&sourceid=chrome&ie=UTF-8))
 - 과제 1 : 속도 변환 만들기
-  - 예를 들어 55km 입력하면 이게 몇 mile 인지 얻어내고, 1시간을 넣으면 몇 초인지 알려주는 것
+  - 예시 1 : 55km 입력하면 이게 몇 mile 인지 얻어내고, [구글링 길이 변환기](https://ddolcat.tistory.com/731) 
+  - 예시 2 : 1시간을 넣으면 몇 초인지 알려주는 것 
 - 과제 2 : money converter 만들기
   - 예를 들어 10달러를 입력하면 이게 원화로 얼마인지를 알려주는 것
 ```jsx
@@ -390,7 +391,7 @@ function MinutesToHours() {
     return (
         <div>
             <div>
-                <h1>Super Converter</h1>
+                <h3>Minutes To Hours</h3>
                 <div>
                     <label htmlFor="minutes">Minutes</label>
                     <input
@@ -421,10 +422,47 @@ function MinutesToHours() {
 }
 
 // km/miles 변환기 Component
+// 1 Miles 은 1.609344 Kilometers 이다.
 function KmToMiles() {
+  const [value, setValue] = React.useState(0);
+  const [inverted, setInverted] = React.useState(false);
+  const onChange = (event) => {
+    setValue(event.target.value);
+  }
+  const onReset = () => setValue(0);
+  const onInvert = () => {
+    onReset();
+    setInverted((current) => !current);
+  }
   return (
           <div>
             <h3>KM 2 Miles</h3>
+            <div>
+              <div>
+                <label htmlFor="kilometer">Km</label>
+                <input
+                        value={inverted ? value / 1.609344 : value}
+                        onChange={onChange}
+                        disabled={inverted}
+                        id="kilometer"
+                        type="number"
+                        placeholder="Kilometer"
+                />
+              </div>
+              <div>
+                <label htmlFor="mile">Mile</label>
+                <input
+                        value={inverted ? value : value * 1.609344}
+                        onChange={onChange}
+                        disabled={!inverted}
+                        id="mile"
+                        type="number"
+                        placeholder="Mile"
+                />
+              </div>
+              <button onClick={onReset}>Reset</button>
+              <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+            </div>
           </div>
   )
 }
