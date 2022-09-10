@@ -370,62 +370,97 @@ console.log(counter); // 출력 결과 : 1
 - 과제 2 : money converter 만들기
   - 예를 들어 10달러를 입력하면 이게 원화로 얼마인지를 알려주는 것
 ```jsx
-    // Input and State 의 unit conversion (단위 변환) App 만들기 (Supper Converter)
-    // 분에서 시간으로, 반대로 시간에서 분으로 변환
-    // 킬로미터에서 마일로, 키로그램에서 파운드로 변환
-    // 분을 시단위로 고쳐주는 공식이란? Number(Minutes) / 60
-    // 시을 분단위로 고쳐주는 공식이란? Number(Hours) * 60
-    function App() {
-        // state 생성
-        const [amount, setAmount] = React.useState(0); // default 비어 놓기
-        const [inverted, setInverted] = React.useState(false);
-        
-        const onChange = (event) => {
-            setAmount(event.target.value);
-        };
-        // onClick 함수 사용
-        const reset = () => setAmount(0);
-        const onInvert = () => {
-            // input 변환 시 amount 초기화 처리
-            reset();
-            setInverted((current) => !current);
-        };
+// 시/분 변환기 Component
+function MinutesToHours() {
+    // state 생성
+    const [amount, setAmount] = React.useState(0); // default 비어 놓기
+    const [inverted, setInverted] = React.useState(false);
+    
+    const onChange = (event) => {
+        setAmount(event.target.value);
+    };
+    // onClick 함수 사용
+    const reset = () => setAmount(0);
+    const onInvert = () => {
+        // input 변환 시 amount 초기화 처리
+        reset();
+        setInverted((current) => !current);
+    };
 
-        return (
+    return (
+        <div>
             <div>
+                <h1>Super Converter</h1>
                 <div>
-                    <h1>Super Converter</h1>
-                    <div>
-                        <label htmlFor="minutes">Minutes</label>
-                        <input
-                            disabled={inverted}
-                            value={inverted ? amount * 60 : amount}
-                            onChange={onChange}
-                            id="minutes"
-                            placeholder="Minutes"
-                            type="number"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="hours">Hours</label>
-                        <input
-                            disabled={!inverted}
-                            value={inverted ? amount : Math.floor(amount / 60)}
-                            onChange={onChange}
-                            id="hours"
-                            placeholder="Hours"
-                            type="number"
-                        />
-                    </div>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input
+                        disabled={inverted}
+                        value={inverted ? amount * 60 : amount}
+                        onChange={onChange}
+                        id="minutes"
+                        placeholder="Minutes"
+                        type="number"
+                    />
                 </div>
-                <button onClick={reset}>Reset</button>
-                <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                    <input
+                        disabled={!inverted}
+                        value={inverted ? amount : Math.floor(amount / 60)}
+                        onChange={onChange}
+                        id="hours"
+                        placeholder="Hours"
+                        type="number"
+                    />
+                </div>
             </div>
-        );
-    }
-    ReactDOM.render(<App />, root);
-```
-#### 
-```jsx
+            <button onClick={reset}>Reset</button>
+            <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+        </div>
+    );
+}
 
+// km/miles 변환기 Component
+function KmToMiles() {
+  return (
+          <div>
+            <h3>KM 2 Miles</h3>
+          </div>
+  )
+}
+
+```
+- 여러 변환기들을 고를 수 있게 만들기
+```jsx
+function App() {
+  const [index, setIndex] = React.useState("default");
+
+  // select 의 change event 를 리스닝 해주는 것
+  const onSelect = (event) => {
+    setIndex(event.target.value);
+  }
+  console.log('render w/', index)
+  return (
+          <div>
+            <h1>Super Converter</h1>
+            {/* 시/분 변환기에서 km/miles 변환기로 전환 처리 */}
+            <select value={index} onChange={onSelect}>
+              <option value="default">Select your units</option>
+              <option value="0">Minutes & Hours</option>
+              <option value="1">Km & Miles</option>
+            </select>
+            <hr />
+            {/* 컴포넌트 안에 JSX 문법 사용 */}
+            {/* html 구문에서 javascript 사용할 경우 중괄호 안에 사용하면 된다. 중괄호를 안쓸 경우, 텍스트로 인식함 */}
+            {index === "default"
+                    ? "Please select your units"
+                    : index === "0" ? <MinutesToHours /> : index === "1" ? <KmToMiles /> : null}
+            {/* if else 사용 */}
+            {/*index === "default" ? "Please select your units" : null*/}
+            {/*index === "0" ? <MinutesToHours /> : null*/}
+            {/*index === "1" ? <KmToMiles /> : null*/}
+          </div>
+  );
+}
+ReactDOM.render(<App />, root);
 ```
