@@ -363,10 +363,63 @@ console.log(counter); // 출력 결과 : 1
 ```
 ### State 연습 예제 2가지
 #### unit 의 converter (단위 변환기) 만들기
-- 분 단위(minute) 를 넣으면 그걸 단위(hour) 로 값을 출력해주는 것
+- 분 단위(minute) 를 넣으면 그걸 단위(hour) 로 값을 출력해주는 것 ([구글 시간 변환기](https://www.google.com/search?q=%EB%B6%84%EC%97%90%EC%84%9C+%EC%8B%9C%EA%B0%84%EC%9C%BC%EB%A1%9C+%EB%B3%80%ED%99%98%EA%B8%B0&oq=%EB%B6%84%EC%97%90%EC%84%9C+%EC%8B%9C%EA%B0%84&aqs=chrome.1.69i57j0i512j0i5i30.6978j0j7&sourceid=chrome&ie=UTF-8))
 - 예를 들어 55km 입력하면 이게 몇 mile 인지 얻어내고, 1시간을 넣으면 몇 초인지 알려주는 것 
 ```jsx
+    // Input and State 의 unit conversion (단위 변환) App 만들기 (Supper Converter)
+    // 분에서 시간으로, 반대로 시간에서 분으로 변환
+    // 킬로미터에서 마일로, 키로그램에서 파운드로 변환
+    // 분을 시단위로 고쳐주는 공식이란? Number(Minutes) / 60
+    // 시을 분단위로 고쳐주는 공식이란? Number(Hours) * 60
+    function App() {
+        // state 생성
+        const [amount, setAmount] = React.useState(0); // default 비어 놓기
+        const [inverted, setInverted] = React.useState(false);
+        
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        };
+        // onClick 함수 사용
+        const reset = () => setAmount(0);
+        const onInvert = () => {
+            // input 변환 시 amount 초기화 처리
+            reset();
+            setInverted((current) => !current);
+        };
 
+        return (
+            <div>
+                <div>
+                    <h1>Super Converter</h1>
+                    <div>
+                        <label htmlFor="minutes">Minutes</label>
+                        <input
+                            disabled={inverted}
+                            value={inverted ? amount * 60 : amount}
+                            onChange={onChange}
+                            id="minutes"
+                            placeholder="Minutes"
+                            type="number"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input
+                            disabled={!inverted}
+                            value={inverted ? amount : Math.floor(amount / 60)}
+                            onChange={onChange}
+                            id="hours"
+                            placeholder="Hours"
+                            type="number"
+                        />
+                    </div>
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
+            </div>
+        );
+    }
+    ReactDOM.render(<App />, root);
 ```
 #### money converter 배우기
 - 예를 들어 10달러를 입력하면 이게 원화로 얼마인지를 알려주는 것

@@ -135,7 +135,9 @@
     function App() {
         // React.js 에서 input 은 uncontrolled 로 알려져 있어, value 값을 통제할 수 없다.
         // state 생성
-        const [minutes, setMinutes] = React.useState(0); // default 비어 놓기
+        const [amount, setAmount] = React.useState(0); // default 비어 놓기
+        const [inverted, setInverted] = React.useState(false);
+
         // 사용자가 input 에 다른 값을 입력할 때마다 value 를 업데이트 처리 (onChange 함수)
         // onChange 함수 사용 (input 에 변화가 생길때마다 그 변화를 리스닝 하고 싶을 때 onChange 라는 event 사용)
         const onChange = (event) => {
@@ -146,10 +148,17 @@
             // console.log(event);
             console.log(event.target.value);
             // input 의 value 를 가져왔으니, minutes 에 넣어주기
-            setMinutes(event.target.value);
+            setAmount(event.target.value);
         };
         // onClick 함수 사용
-        const reset = () => setMinutes(0);
+        const reset = () => setAmount(0);
+        // new State 조작하는 함수
+        // flipped 가 false 면 true 로 바꿔주기
+        const onInvert = () => {
+            // input 변환 시 amount 초기화 처리
+            reset();
+            setInverted((current) => !current);
+        };
 
         /*
         * State Practice part One : Recap (요약)
@@ -172,7 +181,18 @@
         * 6. reset button 생성
         * 7. onClick event 생성 (onClick 함수는 state 의 두 번째 요소 사용해서 데이터 업데이트 해주는 역할을 해줌)
         *   state 를 리스닝 하거나, 연결한 모든 것들을 전부 0 으로 돌려줌
-        * 8. hours 도 minutes 단위로 변환 작업 예정 (flip : 뒤집어주는 것)
+        * 8. hours 도 minutes 단위로 변환 작업을 위해 컴포넌트에 새로운 state 생성 (flip : 뒤집어주는 것)
+        * 9. onFlip 함수 생성 (flipped 값을 반대로 전환 시키는 역할)
+        *   flipped 역할
+        *       - flipped 상태에 따라서 input 을 disabled 또는 enabled 로 바꿔줌
+        *       - 예시 : Hours Input 이 enabled 라면 Minutes Input 은 disabled 상태이고, 시를 분으로 변환 작업이 가능한 상태 (<-> 분을 시로 변환 작업이 가능한 상태)
+        * 10. Minutes 와 Hours input 모두에 onChange 함수를 걸어놨기 때문에 state 명을 minutes -> amount 로 변경
+        *   flipped 상태에 따라서 Minutes 또는 Hours 입력되는 숫자들로 다르게 보이기 때문에
+        *   사용자는 enabled 된 input 에서 amount state 를 변경할 수 있는 것이다.
+        * 11. amount 와 flipped 를 조합해서 사용.
+        *   flipped ? Minutes input 에서 Hours 을(를) Minutes 으로 단위 변환하는 공식 적용. (amount(시간) 곱하기 60) : amount
+        *   !flipped ? Hours input 에서 Minutes 을 Hours 로(으로) 단위 변환하는 공식 적용. (amount(분) 나누기 60) : amount
+        * 12. Invert 버튼을 클릭할 때 마다 버튼 문구 변경 처리 (React 가 알아서 새로고침 처리 해줌)
         * */
 
         return (
@@ -185,15 +205,30 @@
                         {/* import 구문에서 react.development.js, react-dom.development.js 로 변경하면 유효하지 않은 DOM property 'for'. 라고 알려줌 */}
                         <div>
                             <label htmlFor="minutes">Minutes</label>
-                            <input value={minutes} onChange={onChange}  id="minutes" placeholder="Minutes" type="number" />
+                            <input
+                                disabled={inverted}
+                                value={inverted ? amount * 60 : amount}
+                                onChange={onChange}
+                                id="minutes"
+                                placeholder="Minutes"
+                                type="number"
+                            />
                             {/*<h4>You want to convert {minutes}</h4>*/}
                         </div>
                         <div>
                             <label htmlFor="hours">Hours</label>
-                            <input disabled value={Math.round(minutes / 60)} id="hours" placeholder="Hours" type="number" />
+                            <input
+                                disabled={!inverted}
+                                value={inverted ? amount : Math.floor(amount / 60)}
+                                onChange={onChange}
+                                id="hours"
+                                placeholder="Hours"
+                                type="number"
+                            />
                         </div>
                     </div>
                     <button onClick={reset}>Reset</button>
+                    <button onClick={onInvert}>{inverted ? "Turn back" : "Invert"}</button>
                 </div>
                 <Test />
             </>
