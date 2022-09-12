@@ -9,10 +9,14 @@
 <div id="root"></div>
 </body>
 
-<!-- react, react-dom import 구문 -->
+<!-- react, react-dom import 구문 production version -->
 <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<!--
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<!-- prop-types production version
+<script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
+-->
+<!-- development version
 <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
 -->
@@ -20,6 +24,44 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     const root = document.getElementById("root");
+
+    function PropsTypesBtn({text, fontSize = 12}) {
+        return (
+            <button
+                style={{
+                    backgroundColor: "gray",
+                    color: "white",
+                    padding: "10px 20px",
+                    border: 0,
+                    borderRadius: 10,
+                    marginRight: "5px",
+                    fontSize
+                }}
+            >
+                {text}
+            </button>
+        );
+    }
+
+    PropsTypesBtn.propTypes = {
+        text: PropTypes.string.isRequired,
+        fontSize: PropTypes.number
+    }
+    function PropsTypes() {
+        // PropType 은 어떤 타입의 prop 을 받고 있는지를 체크해준다.
+        // 1. propTypes 라이브러리 설치하기
+        // 2. 속성들이 어떤 타입인지 지정해준다.
+        // 컴포넌트.propTypes = {
+        //    prop 이름 : PropTypes.string(prop 타입),
+        //    prop 이름 : PropTypes.string.isRequired(prop 타입), // isRequired 는 필수 값 지정 (그 외 옵션 값)
+        // }
+        return (
+            <div>
+                <PropsTypesBtn text="Save Change" fontSize={18} />
+                <PropsTypesBtn />
+            </div>
+        )
+    }
 
     function Btn({text, changeValue}) {
         // button 이 언제 그려지는지 확인하기
@@ -52,35 +94,34 @@
                 onClick={changeValue}
             >
                 {text}
-            </button>);
+            </button>
+        );
     }
-
     /*
-    * button 의 style 을 복붙하는 것 대신에, 보다 좀 더 설정이 가능한 컴포넌트를 만들어 주면 좋을 것이다.
-    * 즉, 이 모종의 설정들을 넘겨 줄 수 있는 button 컴포넌트로 만들기
-    * 아래 버튼 함수형 컴포넌트들을 text 만 다르고, style 이 같은 한 가지의 컴포넌트를 만든다면?
-    function SaveBtn() {
-        return <button style={{
-            backgroundColor: "tomato",
-            color: "white",
-            padding: "10px 20px",
-            border: 0,
-            borderRadius: 10,
-            marginRight: "10px"
-        }}>Save Change</button>;
-    }
-    function ConfirmBtn() {
-        return <button> style={{
-            backgroundColor: "tomato",
-            color: "white",
-            padding: "10px 20px",
-            border: 0,
-            borderRadius: 10,
-            marginRight: "10px"
-        }}Confirm</button>;
-    }
-    * */
-
+   * button 의 style 을 복붙하는 것 대신에, 보다 좀 더 설정이 가능한 컴포넌트를 만들어 주면 좋을 것이다.
+   * 즉, 이 모종의 설정들을 넘겨 줄 수 있는 button 컴포넌트로 만들기
+   * 아래 버튼 함수형 컴포넌트들을 text 만 다르고, style 이 같은 한 가지의 컴포넌트를 만든다면?
+   function SaveBtn() {
+       return <button style={{
+           backgroundColor: "tomato",
+           color: "white",
+           padding: "10px 20px",
+           border: 0,
+           borderRadius: 10,
+           marginRight: "10px"
+       }}>Save Change</button>;
+   }
+   function ConfirmBtn() {
+       return <button> style={{
+           backgroundColor: "tomato",
+           color: "white",
+           padding: "10px 20px",
+           border: 0,
+           borderRadius: 10,
+           marginRight: "10px"
+       }}Confirm</button>;
+   }
+   * */
     // React 의 memo 함수에 컴포넌트를 담아줘서 사용.
     const MemorizedBtn = React.memo(Btn);
     function App() {
@@ -98,6 +139,7 @@
         const changeValue = () => setValue("Revert Changes");
         return (
             <div>
+                <PropsTypes />
                 {/* 새로운 정보를 Btn 컴포넌트에 전송하기 */}
                 {/*  <Btn banana="Save Change" /> */}
                 {/*

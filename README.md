@@ -612,3 +612,45 @@ ReactDOM.render(<App />, root);
 - 부모 컴포넌트에 어떤 상태 값이 변경되면, 모든 자식 컴포넌트는 리렌더링 된다.
 - 추후 이것이 어플리케이션이 느려지는 원인이 될 수 있다.
 - React 의 memo 함수를 사용해 상태 값이 변경된, prop 로 전달받아 상태 값이 변경되는 자식 컴포넌트만 리렌더링 될 수 있게 최적화 해줘야 한다. 
+
+## [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html#gatsby-focus-wrapper)
+- PropTypes 지정해주는 라이브러리이다.
+```jsx
+function PropsTypesBtn({text, fontSize = 12}) {
+    return (
+        <button
+            style={{
+                backgroundColor: "gray",
+                color: "white",
+                padding: "10px 20px",
+                border: 0,
+                borderRadius: 10,
+                marginRight: "5px",
+                fontSize
+            }}
+        >
+            {text}
+        </button>
+    );
+}
+
+PropsTypesBtn.propTypes = {
+    text: PropTypes.string.isRequired,
+    fontSize: PropTypes.number
+}
+function PropsTypes() {
+    // PropType 은 어떤 타입의 prop 을 받고 있는지를 체크해준다.
+    // 1. propTypes 라이브러리 설치하기
+    // 2. 속성들이 어떤 타입인지 지정해준다.
+    // 컴포넌트.propTypes = {
+    //    prop 이름 : PropTypes.string(prop 타입),
+    //    prop 이름 : PropTypes.string.isRequired(prop 타입), // isRequired 는 필수 값 지정 (그 외 옵션 값)
+    // }
+    return (
+        <div>
+            <PropsTypesBtn text="Save Change" fontSize={18} />
+            <PropsTypesBtn />
+        </div>
+    )
+}
+```
