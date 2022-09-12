@@ -502,3 +502,6 @@ function App() {
 }
 ReactDOM.render(<App />, root);
 ```
+
+## Props
+
