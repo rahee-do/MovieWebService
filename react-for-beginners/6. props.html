@@ -9,17 +9,18 @@
 <div id="root"></div>
 </body>
 
-<!-- react, react-dom import 구문 production version -->
+<!-- react, react-dom import 구문 production version
 <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+-->
 <!-- prop-types production version
 <script src="https://unpkg.com/prop-types@15.6/prop-types.min.js"></script>
 -->
-<!-- development version
+<!-- development version -->
 <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
--->
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
 <!-- Load Babel : babel 을 import 한뒤, type 을 지정해줘야 한다. -->
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
@@ -68,7 +69,7 @@
         return (
             <div>
                 <PropsTypesBtn text="Save Change" fontSize={18} change={change} onClick={changeValue} />
-                <PropsTypesBtn />
+                <PropsTypesBtn text="Save Change" />
             </div>
         )
     }
