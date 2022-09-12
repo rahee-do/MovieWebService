@@ -25,9 +25,18 @@
 <script type="text/babel">
     const root = document.getElementById("root");
 
-    function PropsTypesBtn({text, fontSize = 12}) {
+    /*
+    * Recap ! (요약)
+    * 컴포넌트와 스타일을 재사용하여 사용하는 방법!
+    * prop 을 전달할 때의 이름과 받아서 사용할 때의 이름은 동일해야한다.
+    * prop 전달하는 것을 잊어버리거나, 잘못된 타입을 전달하는 것을 방지하기 위해 propTypes 설치해서 사용!
+    *   Btn 이 어떤 prop 들을 받는지 검사하는 게 가능하게 도와주는 라이브러리이다.
+    * */
+
+    function PropsTypesBtn({text, fontSize = 12, change, onClick}) {
         return (
             <button
+                onClick={onClick}
                 style={{
                     backgroundColor: "gray",
                     color: "white",
@@ -38,16 +47,17 @@
                     fontSize
                 }}
             >
-                {text}
+                {change ? "revert" : text}
             </button>
         );
     }
-
     PropsTypesBtn.propTypes = {
         text: PropTypes.string.isRequired,
         fontSize: PropTypes.number
     }
     function PropsTypes() {
+        const [change, setChange] = React.useState(false);
+        const changeValue = () => setChange((current) => !current);
         // PropType 은 어떤 타입의 prop 을 받고 있는지를 체크해준다.
         // 1. propTypes 라이브러리 설치하기
         // 2. 속성들이 어떤 타입인지 지정해준다.
@@ -57,7 +67,7 @@
         // }
         return (
             <div>
-                <PropsTypesBtn text="Save Change" fontSize={18} />
+                <PropsTypesBtn text="Save Change" fontSize={18} change={change} onClick={changeValue} />
                 <PropsTypesBtn />
             </div>
         )
@@ -98,10 +108,10 @@
         );
     }
     /*
-   * button 의 style 을 복붙하는 것 대신에, 보다 좀 더 설정이 가능한 컴포넌트를 만들어 주면 좋을 것이다.
-   * 즉, 이 모종의 설정들을 넘겨 줄 수 있는 button 컴포넌트로 만들기
-   * 아래 버튼 함수형 컴포넌트들을 text 만 다르고, style 이 같은 한 가지의 컴포넌트를 만든다면?
-   function SaveBtn() {
+    * button 의 style 을 복붙하는 것 대신에, 보다 좀 더 설정이 가능한 컴포넌트를 만들어 주면 좋을 것이다.
+    * 즉, 이 모종의 설정들을 넘겨 줄 수 있는 button 컴포넌트로 만들기
+    * 아래 버튼 함수형 컴포넌트들을 text 만 다르고, style 이 같은 한 가지의 컴포넌트를 만든다면?
+    function SaveBtn() {
        return <button style={{
            backgroundColor: "tomato",
            color: "white",
@@ -110,8 +120,8 @@
            borderRadius: 10,
            marginRight: "10px"
        }}>Save Change</button>;
-   }
-   function ConfirmBtn() {
+    }
+    function ConfirmBtn() {
        return <button> style={{
            backgroundColor: "tomato",
            color: "white",
@@ -120,8 +130,8 @@
            borderRadius: 10,
            marginRight: "10px"
        }}Confirm</button>;
-   }
-   * */
+    }
+    * */
     // React 의 memo 함수에 컴포넌트를 담아줘서 사용.
     const MemorizedBtn = React.memo(Btn);
     function App() {
