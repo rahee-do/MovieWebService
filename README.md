@@ -504,4 +504,111 @@ ReactDOM.render(<App />, root);
 ```
 
 ## Props
+```jsx
+const root = document.getElementById("root");
 
+function Btn({text, onClick}) {
+    // button 이 언제 그려지는지 확인하기
+    console.log(text, "was rendered");
+
+    /*
+    props 는 object 이기 때문에 "{}" 중괄호를 열어 "{text}" 로 받을 수 있다.
+    function Btn(props){ ... } 로 안 받고 function Btn({text}) { ... } 로 바로 받아서 사용하면 된다.
+    console.log(text);
+
+    const { text, big, changeValue } = props;
+    console.log(text === "Save Change" ? props.x : props.y);
+
+    props 는 object 로 전달해준다.
+    console.log(props);
+    console.log(props.text);
+    */
+
+    return (
+        <button
+            style={{
+                backgroundColor: "tomato",
+                color: "white",
+                padding: "10px 20px",
+                border: 0,
+                borderRadius: 10,
+                marginRight: "5px",
+                // fontSize: big ? 18 : 14,
+            }}
+            onClick={onClick}
+        >
+            {text}
+        </button>);
+}
+
+function App() {
+    /*
+    * 부모 컴포넌트에서 state(상태) 변경되고, 상태 값이 변경될 때
+    * return 되는 부분의 자식 컴포넌트들이 모두 새로 그려진다.
+    * 그리고 부모의 상태를 바꾸는 함수를 만들었고,
+    * 함수를 실행하는데 그것은 자식이 실행 시킨다.
+    * 문제점 : 상태 값이 변경되지 않는 Btn Continue 컴포넌트도 리렌더링 되는 것.
+    * 어떤 부분이 Btn Continue 를 다시 그리는 것인지 확인하기 (ReactJS 의 최적화 하는 방법)
+    *   첫 번재 Btn 만 변경되기 때문에 두 번째 Btn 은 렌더링 안되게 처리
+    */
+    const [value, setValue] = React.useState("Save Change");
+    const changeValue = () => setValue("Revert Changes");
+    return (
+        <div>
+            <Btn text={value} onClick={changeValue} />
+            <Btn text="Confirm" />
+        </div>
+    );
+}
+ReactDOM.render(<App />, root);
+```
+
+## React 의 Memo 함수
+- prop 이 변경되지 않는 한 특정 컴포넌트를 다시 그릴지 말지를 결정할 수 있다.
+- 첫 번째 버튼의 props 는 state 와 연결되어 있기 때문에 변경되는 것을 알 수 있다.
+- 하지만 두 번째 버튼은 변경되지 않는다. 
+- ReactJS 에 두 번째 버튼은 re-render 시키지 않게 React Memo 함수로 처리해주면 된다.  
+```jsx
+const root = document.getElementById("root");
+
+
+function Btn({text, onClick}) {
+    // button 이 언제 그려지는지 확인하기
+    console.log(text, "was rendered");
+
+    return (
+        <button
+            style={{
+                backgroundColor: "tomato",
+                color: "white",
+                padding: "10px 20px",
+                border: 0,
+                borderRadius: 10,
+                marginRight: "5px",
+            }}
+            onClick={onClick}
+        >
+            {text}
+        </button>);
+}
+// React 의 memo 함수에 컴포넌트를 담아줘서 사용.
+const MemorizedBtn = React.memo(Btn);
+function App() {
+    /*
+    * * React Memo 사용! (memorize(기억)하는 것처럼)
+    *   만약 props 가 변경되지 않는다고 하면 리렌더링 시키지 않게 처리
+    */
+    const [value, setValue] = React.useState("Save Change");
+    const changeValue = () => setValue("Revert Changes");
+    return (
+        <div>
+            <MemorizedBtn text={value} onClick={changeValue} />
+            <MemorizedBtn text="Confirm" />
+        </div>
+    );
+}
+ReactDOM.render(<App />, root);
+```
+- 부모 컴포넌트에 어떤 상태 값이 변경되면, 모든 자식 컴포넌트는 리렌더링 된다.
+- 추후 이것이 어플리케이션이 느려지는 원인이 될 수 있다.
+- React 의 memo 함수를 사용해 상태 값이 변경된, prop 로 전달받아 상태 값이 변경되는 자식 컴포넌트만 리렌더링 될 수 있게 최적화 해줘야 한다. 
