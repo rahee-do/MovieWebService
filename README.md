@@ -55,8 +55,10 @@ $ export PATH="$PATH:/opt/yarn-[version]/bin"
 
 > Create React App 의 장점은 *Auto-Reload(자동 재실행)* 이다.
 
-
-
+## PropTypes 설치
+```shell
+$ yarn add prop-types
+```
 
 
 
