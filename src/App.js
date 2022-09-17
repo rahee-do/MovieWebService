@@ -1,12 +1,11 @@
 import React from "react";
-import Button from "./Button";
-import styles from "./App.module.css";
+import Hook from "./Hook";
 
 function App() {
+
   return (
     <div>
-      <h1 className={styles.title}>Welcome back!!!</h1>
-      <Button text={"Continue"} />
+        <Hook />
     </div>
   );
 }
