@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Button from "./Button";
-import styles from "./App.module.css";
+import styles from "../public/css/App.module.css";
 
 /*
 * Recap !
@@ -124,8 +124,10 @@ function Effects() {
                 <h1>{counter}</h1>
                 <button onClick={onClick}>Click me</button>
             </div>
-            {/*<h1 className={styles.title}>Welcome back!!!</h1>*/}
-            {/*<Button onClick={onClick} text={"Click me"} />*/}
+            <div>
+                <h1 className={styles.title}>Welcome back!!!</h1>
+                <Button text={"Click me"} />
+            </div>
         </div>
     );
 }

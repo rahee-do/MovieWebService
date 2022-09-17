@@ -1,11 +1,10 @@
 import React from "react";
-import Effects from "./Effects";
+import ToDoList from "./ToDoList";
 
 function App() {
-
   return (
     <div>
-        <Effects />
+        <ToDoList />
     </div>
   );
 }
