@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # 버전이 없는 파일들
+package-lock.json
 modules.xml
 movie-web-service.iml
 Project_Default.xml
