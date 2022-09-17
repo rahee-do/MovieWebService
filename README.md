@@ -57,7 +57,7 @@ $ export PATH="$PATH:/opt/yarn-[version]/bin"
 
 ## PropTypes 설치
 ```shell
-$ yarn add prop-types
+$ npm install prop-types
 ```
 
 
