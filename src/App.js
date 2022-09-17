@@ -1,11 +1,11 @@
 import React from "react";
-import Hook from "./Hook";
+import Effects from "./Effects";
 
 function App() {
 
   return (
     <div>
-        <Hook />
+        <Effects />
     </div>
   );
 }

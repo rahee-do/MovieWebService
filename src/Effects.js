@@ -60,7 +60,7 @@ function Hello() {
     return <h1>Hello</h1>;
 }
 
-function Hook() {
+function Effects() {
     const [counter, setValue] = useState(0);
     const [keyword, setKeyword] = useState("");
     const [showing, setShowing] = useState(false);
@@ -130,4 +130,4 @@ function Hook() {
     );
 }
 
-export default Hook;
+export default Effects;
