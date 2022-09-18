@@ -1,57 +1,47 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
+import {
+    BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Home from "./routes/Home";
+import Effects from "./routes/Effects";
+import ToDoList from "./routes/ToDoList";
+import Coins from "./routes/Coins";
+import Movies from "./routes/Movies";
+import MovieDetail from "./routes/MovieDetail";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  // async-await 사용
-  const getMovies = async () => {
-    // await 으로 한번 더 감싸줘서 사용.
-    const json = await (
-        await fetch("https://yts.mx/api/v2/list_movies.json?minimum_rating=9.0&sort_by=year")
-    ).json();
-    /*
-      const response = await fetch("https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year");
-      const json = await response.json();
-    */
-    setMovies(json.data.movies);
-    setLoading(false);
-  }
-  useEffect(() => {
-    getMovies();
-    // 영화 별점이 8.5점 이상이면서 연도별로 정렬된 데이터 API 호출
-    /*
-        .then 보다 많이 사용되는 async-await 사용하기
-        fetch("https://yts.mx/api/v2/list_movies.json?minimum_rating=8.5&sort_by=year")
-            .then(response => response.json())
-            .then(json => {
-              setMovies(json.data.movies);
-              setLoading(false);
-            });
-     */
-  }, []);
-  console.log(movies);
+    // BrowserRouter 와 HashRouter 의 차이점
+    // BrowserRouter 사용했을 때 url => http://localhost:3000/movies
+    // HashRouter 사용했을 때 url => http://localhost:3000/#/movies
+
   return (
-    <div>
-      <h1>{loading ? "" : `Movies(${movies.length})`}</h1>
-      {loading ? (
-          <h1>Loading...</h1>
-      ) : (
-          <div>
-            {movies.map((movie) => (
-                <div key={movie.id}>
-                  <img src={movie.medium_cover_image} alt={`${movie.id}_medium_cover_image`}/>
-                  <h2>{movie.title_long}</h2>
-                  <p>{movie.summary === "" ? "No summary.." : movie.summary}</p>
-                  <ul>
-                    {movie.genres.map(g => (
-                        <li key={g}>{g}</li>
-                    ))}
-                  </ul>
-                </div>
-            ))}
-          </div>
-      )}
-    </div>
+    <Router>
+      {/* Switch 는 route(url) 를 찾아주는 역할 */}
+      {/* 한번에 하나의 router 만 렌더링해주기 위해서 사용. */}
+      <Switch>
+          {/* Route 태그 내에 path 지정과 Route 안에 Component 를 넣어준다. */}
+          <Route path="/effects">
+              <Effects />
+          </Route>
+          <Route path="/todos">
+              <ToDoList />
+          </Route>
+          <Route path="/coins">
+              <Coins />
+          </Route>
+          <Route path="/movies">
+              <Movies />
+          </Route>
+          <Route path="/movie-detail">
+              <MovieDetail />
+          </Route>
+          <Route path="/">
+              <Home />
+          </Route>
+      </Switch>
+    </Router>
   );
 }
 

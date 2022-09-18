@@ -80,3 +80,10 @@ function Button({text}) {
     )
 }
 ```
+
+## Router 설치
+[V5 React Router 사용법](https://v5.reactrouter.com/web/guides/quick-start)
+```shell
+$ npm install react-router-dom@5.3.0
+$ npm install react-router-dom
+```

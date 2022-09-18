@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
-import Button from "./Button";
-import styles from "../public/css/App.module.css";
+/*
+import Button from "../components/Button";
+import styles from "../../public/css/Effects.module.css";
+*/
 
 /*
 * Recap !
-* ReactJS 의 강점은 새로운 데이터가 들어올 때마다(변화가 일어날 때만) UI 를 refresh 한다는 것(component 를 재실행)이다.
+* ReactJS 의 강점은 새로운 데이터가 들어올 때마다(변화가 일어날 때만) UI 를 refresh 한다는 것(components 를 재실행)이다.
 * useEffect 함수
 *   첫번째 argument 는 실행시키고 싶은 코드
 *   두번째는 dependencies, dependencies 란? ReactJS 가 지켜보아야 하는 것들이다.
@@ -32,8 +34,8 @@ function Hello() {
             console.log("bye :(");
         }
     }, []);
-    // component 를 없애버리거나(destroy), 생성(create) 하는 것을 확인할 수 있다.
-    // component 가 처음 생성될때만 console.log 코드 실행.
+    // components 를 없애버리거나(destroy), 생성(create) 하는 것을 확인할 수 있다.
+    // components 가 처음 생성될때만 console.log 코드 실행.
     // 3. Cleanup function
     /*
         destroyed 되는 부분의 이해를 돕기 위한 함수 예제 코드.
@@ -47,7 +49,7 @@ function Hello() {
         }
         useEffect(effectFn, []);
     */
-    // component 가 destroy(return 되는 함수 부분)될 때 뭔가 할 수 있도록 해줌
+    // components 가 destroy(return 되는 함수 부분)될 때 뭔가 할 수 있도록 해줌
     /*
         useEffect(() => {
             console.log("created :)");
@@ -124,10 +126,12 @@ function Effects() {
                 <h1>{counter}</h1>
                 <button onClick={onClick}>Click me</button>
             </div>
+            {/*
             <div>
                 <h1 className={styles.title}>Welcome back!!!</h1>
                 <Button text={"Click me"} />
             </div>
+            */}
         </div>
     );
 }
