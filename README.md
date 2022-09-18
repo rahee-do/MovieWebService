@@ -60,8 +60,14 @@ $ export PATH="$PATH:/opt/yarn-[version]/bin"
 $ npm install prop-types
 ```
 
-# style modular(모듈러)
-style modular 로 사용하면 Component 에서 독립적으로 유지 시켜줄 수 있다. 
+## Router 설치
+[V5 React Router 사용법](https://v5.reactrouter.com/web/guides/quick-start)
+```shell
+$ npm install react-router-dom@5.3.0
+$ npm install react-router-dom
+```
+### style modular(모듈러)
+style modular 로 사용하면 Component 에서 독립적으로 유지 시켜줄 수 있다.
 
 Button.module.css 파일
 ```css
@@ -79,11 +85,4 @@ function Button({text}) {
         <button className={styles.btn}>{text}</button>
     )
 }
-```
-
-## Router 설치
-[V5 React Router 사용법](https://v5.reactrouter.com/web/guides/quick-start)
-```shell
-$ npm install react-router-dom@5.3.0
-$ npm install react-router-dom
 ```
