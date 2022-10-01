@@ -1,14 +1,14 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-  Switch,
-  Route
+    Switch,
+    Route
 } from "react-router-dom";
 import Home from "./routes/Home";
 import Effects from "./routes/Effects";
 import ToDoList from "./routes/ToDoList";
 import Coins from "./routes/Coins";
-import Movies from "./routes/Movies";
+import LatestMovie from "./routes/LatestMovie";
 import MovieDetail from "./routes/MovieDetail";
 
 function App() {
@@ -31,13 +31,13 @@ function App() {
           <Route path="/coins">
               <Coins />
           </Route>
-          <Route path="/movies">
-              <Movies />
+          <Route path="/movie">
+              <LatestMovie />
           </Route>
           <Route path="/movie/:id">
               <MovieDetail />
           </Route>
-          <Route path="./">
+          <Route path="/">
               <Home />
           </Route>
       </Switch>

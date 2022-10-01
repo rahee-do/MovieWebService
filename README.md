@@ -78,10 +78,10 @@ $ npm run build
 ```
 build 완료 시 build 폴더가 생성되고 현재 소스 코드가 브라우저가 알아볼 수 있게 말아진 것을 확인 할 수 있다. (build 폴더 삭제해주기)
 
-그 다음 GitHub repository의 코드를 host 하기 위해 아래 command 를 package.json 의 가장 마지막에 넣어준다.
+그 다음 GitHub repository 의 코드를 host 하기 위해 아래 command 를 package.json 의 가장 마지막에 넣어준다.
 "homepage": "https://{github username}.github.io/{github repository}" => git repository 확인 command ```git remote -v```
 ```shell
-"homepage": "https://rahee-do.github.io/movie-web-service"
+"homepage": "https://soyeon100.github.io/MovieWebService"
 ```
 script command 에 deploy command 를 생성해준다.
 deploy 가 하는 일은 gh-pages 실행시켜주고, build 라는 디렉토리를 가져가는 것이다.
@@ -98,7 +98,7 @@ predeploy 가 먼저 실행되고 나서 deploy 가 실행될 수 있게 해준�
 $ npm run deploy
 ```
 실행 순서 predeploy -> deploy 로 실행되는 것을 확인할 수 있다.  
-homepage 에 적어놓은 웹 사이트에 업로드되었는지 확인해보기[movie-web-service](https://rahee-do.github.io/movie-web-service)
+homepage 에 적어놓은 웹 사이트에 업로드되었는지 확인해보기 [movie-web-service](https://soyeon100.github.io/MovieWebService)
 
 
 ### style modular(모듈러)
