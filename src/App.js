@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import Home from "./routes/Home";
 import Effects from "./routes/Effects";
-import ToDoList from "./routes/ToDoList";
 import Coins from "./routes/Coins";
 import LatestMovie from "./routes/LatestMovie";
 import Detail from "./routes/Detail";
@@ -24,9 +23,6 @@ function App() {
           {/* Route 태그 내에 path 지정과 Route 안에 Component 를 넣어준다. */}
           <Route path="/effects">
               <Effects />
-          </Route>
-          <Route path="/todos">
-              <ToDoList />
           </Route>
           <Route path="/coins">
               <Coins />
