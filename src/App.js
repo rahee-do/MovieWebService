@@ -5,8 +5,6 @@ import {
     Route
 } from "react-router-dom";
 import Home from "./routes/Home";
-import Effects from "./routes/Effects";
-import Coins from "./routes/Coins";
 import LatestMovie from "./routes/LatestMovie";
 import Detail from "./routes/Detail";
 
@@ -21,12 +19,6 @@ function App() {
       {/* 한번에 하나의 router 만 렌더링해주기 위해서 사용. */}
       <Switch>
           {/* Route 태그 내에 path 지정과 Route 안에 Component 를 넣어준다. */}
-          <Route path="/effects">
-              <Effects />
-          </Route>
-          <Route path="/coins">
-              <Coins />
-          </Route>
           <Route path="/movie">
               <LatestMovie />
           </Route>
