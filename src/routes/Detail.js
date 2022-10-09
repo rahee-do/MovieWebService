@@ -1,9 +1,8 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-function MovieDetail() {
+function Detail() {
     // useParams 함수로 url 의 :parameter(:id) 값을 가져올 수 있다.
     const { id } = useParams();
-    console.log(id);
     const [loading, setLoading] = useState(true);
     const [detail, setDetail] = useState({});
     const getDetail = async () => {
@@ -14,9 +13,11 @@ function MovieDetail() {
         setLoading(false);
     }
     useEffect(() => {
+        console.log("===========")
+        console.log(id);
         getDetail();
     }, []);
-    console.log(detail);
+    // console.log(detail);
     return (
         <div>{loading ? (
                 <h1>Loading...</h1>
@@ -36,4 +37,4 @@ function MovieDetail() {
         </div>
     )
 }
-export default MovieDetail;
+export default Detail;

@@ -9,7 +9,7 @@ import Effects from "./routes/Effects";
 import ToDoList from "./routes/ToDoList";
 import Coins from "./routes/Coins";
 import LatestMovie from "./routes/LatestMovie";
-import MovieDetail from "./routes/MovieDetail";
+import Detail from "./routes/Detail";
 
 function App() {
     // BrowserRouter 와 HashRouter 의 차이점
@@ -34,8 +34,8 @@ function App() {
           <Route path="/movie">
               <LatestMovie />
           </Route>
-          <Route path="/movie/:id">
-              <MovieDetail />
+          <Route path="/detail/:id">
+              <Detail />
           </Route>
           <Route path="/">
               <Home />

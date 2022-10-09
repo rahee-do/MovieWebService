@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import styles from "../css/LatestMovie.module.css";
 
 function Home() {
     return (

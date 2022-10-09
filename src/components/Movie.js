@@ -9,7 +9,7 @@ function Movie({id, coverImg, title, year, summary, genres}) {
             <div>
                 <h2 className={styles.movie__title}>
                     {/* Link 는 브라우저 새로고침 없이도 유저를 다른 페이지로 이동시켜주는 컴포넌트이다. */}
-                    <Link to={`/movie/${id}`}>{title}</Link>
+                    <Link to={`/detail/${id}`}>{title}</Link>
                 </h2>
                 <h3 className={styles.movie__year}>{year}</h3>
                 <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
