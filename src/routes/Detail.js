@@ -1,22 +1,22 @@
-import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+
 function Detail() {
     // useParams 함수로 url 의 :parameter(:id) 값을 가져올 수 있다.
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
     const [detail, setDetail] = useState({});
-    const getDetail = async () => {
+    const getMovie = async (id) => {
         const json = await (
             await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
         ).json();
+        console.log(json.data.movie)
         setDetail(json.data.movie);
         setLoading(false);
     }
     useEffect(() => {
-        console.log("===========")
-        console.log(id);
-        getDetail();
-    }, []);
+        getMovie(id);
+    }, [id]);
     // console.log(detail);
     return (
         <div>{loading ? (
@@ -30,7 +30,6 @@ function Detail() {
                             <li key={g}><strong>{g}</strong></li>
                         ))}
                         <li>{detail.description_intro}</li>
-                        <li><a href={detail.url} target="_blank">Download</a></li>
                     </ul>
                 </div>
             )}
