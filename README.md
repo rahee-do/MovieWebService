@@ -81,7 +81,7 @@ build 완료 시 build 폴더가 생성되고 현재 소스 코드가 브라우�
 그 다음 GitHub repository 의 코드를 host 하기 위해 아래 command 를 package.json 의 가장 마지막에 넣어준다.
 "homepage": "https://{github username}.github.io/{github repository}" => git repository 확인 command ```git remote -v```
 ```shell
-"homepage": "https://soyeon100.github.io/eact-for-beginners-movie"
+"homepage": "https://rahee-do.github.io/react-for-beginners-movie"
 ```
 script command 에 deploy command 를 생성해준다.
 deploy 가 하는 일은 gh-pages 실행시켜주고, build 라는 디렉토리를 가져가는 것이다.
@@ -99,7 +99,7 @@ $ npm run deploy
 ```
 실행 순서 predeploy -> deploy 로 실행되는 것을 확인할 수 있다.  
 homepage 에 적어놓은 웹 사이트에 업로드되었는지 확인해보기 [movie-web-service](https://soyeon100.github.io/MovieWebService)
-
+https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls
 
 ### style modular(모듈러)
 style modular 로 사용하면 Component 에서 독립적으로 유지 시켜줄 수 있다.
