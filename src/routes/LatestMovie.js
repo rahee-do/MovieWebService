@@ -31,7 +31,6 @@ function LatestMovie() {
                 });
          */
     }, []);
-    console.log(movies);
     return (
         <div className={styles.container}>
             {loading ? (
